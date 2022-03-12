@@ -6,5 +6,5 @@ export enum Period {
   TEN_MINUTES = 600000,
   HALF_HOUR = 1800000,
   HOUR = 3600000,
-  DAY = 86400000
+  DAY = 86400000,
 }

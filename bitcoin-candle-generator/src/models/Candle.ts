@@ -36,14 +36,30 @@ export class Candle {
     this.values.push(value);
   }
 
+  setClandleColor() {
+    if (this.open > this.close) {
+      this.color = CandleColor.RED;
+      return;
+    }
+
+    if (this.open < this.close) {
+      this.color = CandleColor.GREEN;
+      return;
+    }
+  }
+
   closeClandle() {
     if (!this.values.length) return;
 
     this.close = this.values[this.values.length - 1];
     this.finalDateTime = new Date();
 
-    this.open > this.close
-      ? (this.color = CandleColor.RED)
-      : (this.color = CandleColor.GREEN);
+    this.setClandleColor();
+  }
+
+  toSimpleObject() {
+    const { values, ...obj } = this;
+
+    return obj;
   }
 }

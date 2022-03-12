@@ -1,21 +1,13 @@
-version: "3.2"
-
+version: "3.8"
 services:
-  rabbit-mq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'candle-generator-rabbitmq'
+  rabbitmq3:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
     environment:
-      - RABBITMQ_DEFAULT_USER=dev
-      - RABBITMQ_DEFAULT_PASS=secret
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
     ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    networks:
-      - rabbitmq_go_net
-
-networks:
-  rabbitmq_go_net:
-    driver: bridge
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
