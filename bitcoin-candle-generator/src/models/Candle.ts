@@ -62,4 +62,8 @@ export class Candle {
 
     return obj;
   }
+
+  toString(): string {
+    return JSON.stringify(this.toSimpleObject());
+  }
 }
