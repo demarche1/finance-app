@@ -1,6 +1,7 @@
 import { app } from "./app";
 import { config } from "dotenv";
 import { MongoDBClient } from "./config/database";
+import { CandleMessageConsumer } from "./messages/CandleMessage";
 
 const startServer = async () => {
   try {
@@ -10,12 +11,17 @@ const startServer = async () => {
     const db = new MongoDBClient(mongoDbUri);
     const PORT = process.env.PORT;
 
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`Server is up at PORT: ${PORT}`);
     });
 
+    const candleMessageConsumer = new CandleMessageConsumer(server);
+
+    await candleMessageConsumer.consume();
+
     process.on("SIGINT", async () => {
       await db.close();
+      server.close();
       console.log(`Server closed`);
     });
 

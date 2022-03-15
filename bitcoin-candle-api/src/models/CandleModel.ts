@@ -1,6 +1,6 @@
 import { Schema, Document, model } from "mongoose";
 
-export interface CandleInterface extends Document {
+export interface ICandle extends Document {
   low: number;
   high: number;
   open: number;
@@ -10,7 +10,7 @@ export interface CandleInterface extends Document {
   currency: string;
 }
 
-const schema = new Schema<CandleInterface>({
+const schema = new Schema<ICandle>({
   low: { type: Number, required: true },
   high: { type: Number, required: true },
   open: { type: Number, required: true },
@@ -20,4 +20,4 @@ const schema = new Schema<CandleInterface>({
   currency: { type: String, required: true },
 });
 
-export const CandleModel = model<CandleInterface>("Candle", schema);
+export const CandleModel = model<ICandle>("Candle", schema);
