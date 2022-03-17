@@ -1,6 +1,6 @@
 import { app } from "./app";
 import { config } from "dotenv";
-import { MongoDBClient } from "./config/database";
+import { MongoDBClient } from "./config/MongoDbClient";
 import { CandleMessageConsumer } from "./messages/CandleMessage";
 
 const startServer = async () => {

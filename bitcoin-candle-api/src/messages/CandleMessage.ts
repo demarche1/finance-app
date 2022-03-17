@@ -1,8 +1,8 @@
 import { Channel, connect, Connection } from "amqplib";
 import { Server } from "socket.io";
-import http from "http";
-import CandleController from "../controllers/CandleController";
 import { CandleController as CandleControllerType } from "../controllers/CandleController";
+import CandleController from "../controllers/CandleController";
+import http from "http";
 
 export class CandleMessageConsumer {
   private channel!: Channel;

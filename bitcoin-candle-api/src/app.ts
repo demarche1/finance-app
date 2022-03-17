@@ -5,5 +5,4 @@ import { candleRouter } from "./routes/CandleRoute";
 export const app = express();
 app.use(cors());
 app.use(express.json());
-
-app.get("/", candleRouter);
+app.use(candleRouter);
