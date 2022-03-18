@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
+import { CandleStore } from "./modules/CandleModule";
 
 export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+  modules: {
+    CandleStore,
+  },
 });
