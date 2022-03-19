@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { CandleStore } from "./modules/CandleModule";
+import { CandleStore } from "./modules/CandleStore";
 
 export default createStore({
   modules: {

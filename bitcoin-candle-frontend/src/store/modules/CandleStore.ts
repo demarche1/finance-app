@@ -1,12 +1,13 @@
-import { Module, VuexModule, Action, Mutation } from "vuex-modules-decorators";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { Module, VuexModule, Action, Mutation } from "vuex-module-decorators";
 import { http } from "@/api/http";
 import { Candle } from "@/models/Candle";
 
-@Module()
+@Module({ name: "CandleStore" })
 export class CandleStore extends VuexModule {
   private candles = [] as Candle[];
 
-  get $candles(): Array<unknown> {
+  get $candles() {
     return this.candles.length
       ? this.candles.map((candle) => ({
           x: candle.finalDateTime.toLocaleString(),
@@ -26,11 +27,16 @@ export class CandleStore extends VuexModule {
   }
 
   @Action
-  public async getFinalCandles(): Promise<void> {
-    const candles = await http.get(
-      String(process.env.VUE_APP_CANDLES_API_ENDPOINT)
-    );
+  public async loadCandles() {
+    const { data } = await http.get("/candles");
 
-    this.context.commit("INITIALIZE_CANDLES", candles);
+    const candles: Candle[] = data.map((candle: Candle) => new Candle(candle));
+
+    this.context.commit("INITIALIZE_CANDLES", candles.reverse());
+  }
+
+  @Action
+  public async addCandle(candle: Candle): Promise<void> {
+    this.context.commit("APPEND_NEW_CANDLE", candle);
   }
 }
