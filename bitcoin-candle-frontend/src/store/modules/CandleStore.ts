@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Module, VuexModule, Action, Mutation } from "vuex-module-decorators";
-import { http } from "@/api/http";
+import { get } from "@/api/http";
 import { Candle } from "@/models/Candle";
 
 @Module({ name: "CandleStore" })
@@ -28,7 +28,7 @@ export class CandleStore extends VuexModule {
 
   @Action
   public async loadCandles() {
-    const { data } = await http.get("/candles");
+    const { data } = await get("/candles");
 
     const candles: Candle[] = data.map((candle: Candle) => new Candle(candle));
 

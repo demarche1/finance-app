@@ -1,41 +1,39 @@
 <template>
   <apexchart
-    width="500"
-    type="bar"
+    type="candlestick"
+    height="350"
     :options="chartOptions"
-    :series="seriesCharts"
-  ></apexchart>
+    :series="series"
+  />
 </template>
 
 <script lang="ts">
-import { Candle } from "@/models/Candle";
 import { Vue, Options } from "vue-class-component";
 import VueApexCharts from "vue3-apexcharts";
+import { Prop } from "vue-property-decorator";
 
 Options({
   components: {
     apexcharts: VueApexCharts,
   },
-  props: {
-    candles: [] as Candle[],
-  },
-  watch: {
-    _candles(val) {
-      this.candles = val;
-    },
-  },
 });
 export default class CandleStickChart extends Vue {
-  private candles = [] as Candle[];
-
-  get propCandles(): Candle[] {
-    return this.candles;
-  }
+  @Prop()
+  candles = [];
 
   chartOptions = {
     chart: {
-      type: "candleStick",
+      id: "candlestick",
+      type: "candlestick",
       height: 350,
+    },
+    plotOptions: {
+      candlestick: {
+        colors: {
+          upward: "#52d600",
+          downward: "#ed0c13",
+        },
+      },
     },
     title: {
       text: "Bitcoin last prices",
@@ -51,11 +49,13 @@ export default class CandleStickChart extends Vue {
     },
   };
 
-  seriesCharts = [
-    {
-      data: this.propCandles,
-    },
-  ];
+  get series(): unknown {
+    return [
+      {
+        data: this.candles,
+      },
+    ];
+  }
 }
 </script>
 <style lang=""></style>
